@@ -6,23 +6,11 @@
     <title>Document</title>
   </head>
   <body>
-    <form>
-      <p>
-        <textarea row="10" cols="10">Conteúdo</textarea>
-      </p>
-      <p>
-        <input type="text" id="input1" />
-      </p>
-      <p>
-        <input type="email" id="input2" />
-      </p>
-      <p>
-        <input type="date" id="input3" />
-      </p>
-      <p>
-        <input type="submit" value="Enviar" />
-      </p>
+    <form action="form.php">
+      <label>Informe o seu nome: <input type="text" id="nameInput" /></label>
+      <input type="submit" value="cadastrar" />
     </form>
-    <script src="./js/script.js"></script>
+    <span id="nameLength"></span>
+    <script defer src="./js/script.js"></script>
   </body>
 </html>
