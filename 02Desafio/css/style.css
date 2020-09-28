@@ -2,8 +2,6 @@ ul,
 li {
   list-style-type: none;
   margin: 10px;
-
-  background-color: darkred;
 }
 
 h1 {
@@ -13,39 +11,26 @@ h1 {
 }
 
 .container {
-  display: flex;
 }
 
 .flag {
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  display: flex;
-  flex-direction: row;
 }
 
 .infos {
-  display: flex;
-  flex-direction: row;
 }
 
 #infocountries .span {
   font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 #infofavcountries .span {
   font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .addfavbutton,
 .deletebutton {
   cursor: pointer;
-  display: flex;
-  flex-direction: row;
 }

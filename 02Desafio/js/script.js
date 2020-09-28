@@ -59,7 +59,7 @@ function createSpan(country) {
   span.classList.add('infos');
   return span;
 }
-
+//função que cria elemento img
 function createImg(flag) {
   var img = document.createElement('img');
   img.setAttribute('src', flag);
@@ -67,12 +67,20 @@ function createImg(flag) {
   return img;
 }
 
+function orderCountries(countries) {
+  const orderedCountries = countries.sort((a, b) => {
+    return a.name.localeCompare(b.name);
+  });
+  return orderedCountries;
+}
+
 //função que cria botão de delete para cada dado da lista
 function createButtonAddFav(index) {
   function deleteCountry() {
-    globalcountries = globalcountries.filter((_, i) => i !== index);
     favCountries.push(globalcountries[index]);
-
+    favCountries = orderCountries(favCountries);
+    globalcountries = globalcountries.filter((_, i) => i !== index);
+    globalcountries = orderCountries(globalcountries);
     render();
   }
   var button = document.createElement('button');
@@ -84,7 +92,10 @@ function createButtonAddFav(index) {
 
 function createButtonDeleteFav(index) {
   function deleteFavorite() {
+    globalcountries.push(favCountries[index]);
+    globalcountries = orderCountries(globalcountries);
     favCountries = favCountries.filter((_, i) => i !== index);
+    favCountries = orderCountries(favCountries);
     render();
   }
   var button = document.createElement('button');
