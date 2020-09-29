@@ -8,6 +8,38 @@
   </head>
   <body>
     <h1>Teste</h1>
+    <form>
+      <div id="search">
+        <label for="search">Pesquise aqui</label>
+        <input type="text" id="input-search" />
+      </div>
+      <div id="box-filters">
+        <input type="checkbox" id="java" name="box-languages" value="java" />
+        <label for="java"> Java </label>
+        <input
+          type="checkbox"
+          id="python"
+          name="box-languages"
+          value="python"
+        />
+        <label for="python"> Python </label>
+        <input
+          type="checkbox"
+          id="javascript"
+          name="box-languages"
+          value="javascript"
+        />
+        <label for="javascript"> Javascript </label>
+      </div>
+      <div id="radio-operators">
+        <input type="radio" id="operator-e" name="operator" />
+        <label for="operator-e">E</label>
+        <input type="radio" id="operator-ou" name="operator" />
+        <label for="operator-ou">Ou</label>
+      </div>
+    </form>
+    <div id="summary-results"></div>
+    <div id="people"></div>
     <script src="./js/script.js"></script>
     <script src="./js/devs.json"></script>
   </body>

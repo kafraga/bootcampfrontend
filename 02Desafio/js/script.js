@@ -1,6 +1,6 @@
 //variáveis globais
-var globalcountries = null;
-var favCountries = [];
+let globalcountries = null;
+let favCountries = [];
 
 //funções que são chamadas depois do load da página
 window.addEventListener('load', async () => {
@@ -92,7 +92,8 @@ function createButtonAddFav(index) {
 
 function createButtonDeleteFav(index) {
   function deleteFavorite() {
-    globalcountries.push(favCountries[index]);
+    globalcountries = [...globalcountries, favCountries[index]];
+    // globalcountries.push(favCountries[index]);
     globalcountries = orderCountries(globalcountries);
     favCountries = favCountries.filter((_, i) => i !== index);
     favCountries = orderCountries(favCountries);
