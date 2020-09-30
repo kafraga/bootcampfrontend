@@ -1,6 +1,7 @@
 let globalPeople = [];
 let peopleFiltered = [];
 let inputSearch = null;
+let inputRadios = null;
 let summaryResults = null;
 let isFiltering = false;
 let inputBoxes = [];
@@ -9,9 +10,12 @@ window.addEventListener('load', async () => {
   inputSearch = document.querySelector('#input-search');
   summaryResults = document.querySelector('#summary-results');
   divPeople = document.querySelector('#people');
-  inputBoxes = document.querySelectorAll('input[name="box-languages"]');
+  // prettier-ignore
+  inputBoxes = Array.from(document.querySelectorAll('input[name="box-languages"]'));
+  inputRadios = Array.from(document.querySelectorAll('input[name="operator"]'));
   activateInput();
   activateBox();
+  activateRadio();
   fetchPeople();
 });
 
@@ -20,13 +24,12 @@ async function fetchPeople() {
 
   const json = await res.json();
   globalPeople = json.map((person) => {
-    const { id, name, picture, programmingLanguages } = person;
+    const { name, picture, programmingLanguages } = person;
     return {
-      id,
       name,
       picture,
       programmingLanguages,
-      search: name.toLowerCase().replace(' ', ''),
+      search: replaceSpecialChars(name.toLowerCase().replace(' ', '')),
       languages: programmingLanguages.map((language) =>
         language.language.toLowerCase()
       ),
@@ -46,20 +49,17 @@ function renderPeopleList() {
   let peopleHTMl = '<div>';
 
   globalPeople.forEach((person) => {
-    const { id, name, picture, programmingLanguages, languages } = person;
+    const { name, picture } = person;
     const personHTML = `
     <div>
       <div>
-        <img src="${picture}" alt="${name}" id="${id}" class="pic">
+        <img src="${picture}" alt="${name}" class="pic">
       </div>
       <div>
         ${name}
        <div>
-         ${createImgLanguages(id)}
+         ${createImgLanguages(person)}
         </div>
-      <div>
-      ${languages}
-      </div>
     </div>
   `;
     peopleHTMl += personHTML;
@@ -73,17 +73,16 @@ function renderFilteredPeopleList() {
   let peopleHTMl = '<div>';
   isFiltering = true;
   peopleFiltered.forEach((person) => {
-    const { id, name, picture, programmingLanguages, languages } = person;
+    const { name, picture } = person;
     const personHTML = `
     <div>
       <div>
-        <img src="${picture}" alt="${name}" id="${id}" class="pic">
+        <img src="${picture}" alt="${name}" class="pic">
       </div>
       <div>
         ${name}
-       <div>
-         ${createImgLanguages(id)}
-        </div>
+       </div>
+         ${createImgLanguages(person)}
     </div>
   `;
     peopleHTMl += personHTML;
@@ -101,50 +100,45 @@ function renderSummaryResults() {
   }
 }
 
-function preventFormSubmit() {
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
-  const form = document.querySelector('form');
-  form.addEventListener('submit', handleSubmit);
-}
-
-function filterPeople(searchKey) {
+function filterPeople() {
+  let searchKey = replaceSpecialChars(inputSearch.value.toLowerCase());
   peopleFiltered = globalPeople.filter((person) =>
     person.search.includes(searchKey)
   );
+  inputRadios.forEach((inputRadio) => {
+    if (inputRadio.checked && inputRadio.value === 'e') {
+      peopleFiltered = peopleFiltered.filter((person) => {
+        let checkPerson = true;
+        inputBoxes.forEach((inputbox) => {
+          if (inputbox.checked && !person.languages.includes(inputbox.value)) {
+            checkPerson = false;
+          }
+        });
+        return checkPerson;
+      });
+    } else {
+      if (inputRadio.checked && inputRadio.value === 'ou') {
+        peopleFiltered = peopleFiltered.filter((person) => {
+          let checkPerson = false;
+          let allUnchecked = true;
+          inputBoxes.forEach((inputbox) => {
+            // prettier-ignore
+            if (inputbox.checked) {
+              allUnchecked = false;
+              if (person.languages.includes(inputbox.value)){
+                checkPerson = true;
+              }
+            }
+          });
+
+          return checkPerson || allUnchecked;
+        });
+      }
+    }
+  });
+
   isFiltering = true;
   render();
-}
-
-function filterLanguages(searchBox, checked) {
-  if (checked) {
-    peopleFiltered = globalPeople.filter((person) =>
-      person.languages.includes(searchBox)
-    );
-    isFiltering = true;
-    render();
-  } else {
-    isFiltering = false;
-    render();
-  }
-}
-
-function activateInput() {
-  function handleSearching(event) {
-    if (event.key === 'Enter') {
-      filterPeople(event.target.value);
-    }
-  }
-  inputSearch.addEventListener('keyup', handleSearching);
-}
-
-function activateBox() {
-  inputBoxes.forEach((inputbox) =>
-    inputbox.addEventListener('change', () =>
-      filterLanguages(inputbox.value, inputbox.checked)
-    )
-  );
 }
 
 function showPeople() {
@@ -155,29 +149,48 @@ function showPeople() {
   }
 }
 
-function createImgLanguages(id) {
-  let imgHTML = '<div>';
-  let filteredByIdPeople = globalPeople.filter((person) => person.id === id);
-  let filteredByIdPerson = filteredByIdPeople[0];
+function preventFormSubmit() {
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+  const form = document.querySelector('form');
+  form.addEventListener('submit', handleSubmit);
+}
 
-  let mappedLanguagePeople = filteredByIdPerson.programmingLanguages.map(
-    (language) => language.language
+function activateInput() {
+  inputSearch.addEventListener('keyup', filterPeople);
+}
+
+function activateBox() {
+  inputBoxes.forEach((inputbox) =>
+    inputbox.addEventListener('change', filterPeople)
   );
-  mappedLanguagePeople.forEach((language) => {
-    if (language === 'Java') {
-      imgLanguageJava = '<img src="./img/java.png" class="languagepic">';
-      imgHTML += imgLanguageJava;
-    } else {
-      if (language === 'Python') {
-        imgLanguagePython = '<img src="./img/python.png" class="languagepic" >';
-        imgHTML += imgLanguagePython;
-      } else {
-        imgLanguageJavascript =
-          '<img src="./img/javascript.png" class="languagepic">';
-        imgHTML += imgLanguageJavascript;
-      }
-    }
+}
+function activateRadio() {
+  inputRadios.forEach((inputRadio) =>
+    inputRadio.addEventListener('change', filterPeople)
+  );
+}
+
+function createImgLanguages(person) {
+  let imgHTML = '<div>';
+  person.languages.forEach((language) => {
+    imgHTML += `<img src="./img/${language.toLowerCase()}.png" class="languagepic">`;
   });
   imgHTML += '</div>';
   return imgHTML;
+}
+
+function replaceSpecialChars(str) {
+  str = str.replace(/[ÀÁÂÃÄÅ]/, 'A');
+  str = str.replace(/[àáâãäå]/, 'a');
+  str = str.replace(/[ÈÉÊË]/, 'E');
+  str = str.replace(/[èéêë]/, 'e');
+  str = str.replace(/[í]/, 'i');
+  str = str.replace(/[õóòöô]/, 'o');
+  str = str.replace(/[ú]/, 'u');
+  str = str.replace(/[Ç]/, 'C');
+  str = str.replace(/[ç]/, 'c');
+
+  return str;
 }
