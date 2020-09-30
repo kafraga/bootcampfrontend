@@ -1,7 +1,16 @@
 .pic {
-  width: 20px;
+  width: 60px;
 }
 
 .languagepic {
-  width: 20px;
+  width: 30px;
+}
+
+.col {
+  display: flex;
+  padding: 20px;
+}
+
+.info {
+  padding-left: 10px;
 }

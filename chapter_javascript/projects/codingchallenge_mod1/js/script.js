@@ -46,20 +46,17 @@ function render() {
 }
 
 function renderPeopleList() {
-  let peopleHTMl = '<div>';
+  let peopleHTMl = '<div class="row">';
 
   globalPeople.forEach((person) => {
     const { name, picture } = person;
     const personHTML = `
-    <div>
-      <div>
-        <img src="${picture}" alt="${name}" class="pic">
+    <div class="col s12 m6 l4">
+      
+        <div class="img"><img src="${picture}" alt="${name}" class="pic"></div>
+        <div class="info"><div class="name">${name} </div>
+        <div class="imglanguage">${createImgLanguages(person)}</div>
       </div>
-      <div>
-        ${name}
-       <div>
-         ${createImgLanguages(person)}
-        </div>
     </div>
   `;
     peopleHTMl += personHTML;
@@ -75,14 +72,11 @@ function renderFilteredPeopleList() {
   peopleFiltered.forEach((person) => {
     const { name, picture } = person;
     const personHTML = `
-    <div>
-      <div>
+    <div class="row">
+      <div class="col s12">
         <img src="${picture}" alt="${name}" class="pic">
-      </div>
-      <div>
-        ${name}
-       </div>
-         ${createImgLanguages(person)}
+        ${name} ${createImgLanguages(person)}
+        </div>
     </div>
   `;
     peopleHTMl += personHTML;
