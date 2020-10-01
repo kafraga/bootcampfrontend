@@ -67,16 +67,17 @@ function renderPeopleList() {
 }
 
 function renderFilteredPeopleList() {
-  let peopleHTMl = '<div>';
+  let peopleHTMl = '<div class="row">';
   isFiltering = true;
   peopleFiltered.forEach((person) => {
     const { name, picture } = person;
     const personHTML = `
-    <div class="row">
-      <div class="col s12">
-        <img src="${picture}" alt="${name}" class="pic">
-        ${name} ${createImgLanguages(person)}
-        </div>
+    <div class="col s12 m6 l4">
+      
+        <div class="img"><img src="${picture}" alt="${name}" class="pic"></div>
+        <div class="info"><div class="name">${name} </div>
+        <div class="imglanguage">${createImgLanguages(person)}</div>
+      </div>
     </div>
   `;
     peopleHTMl += personHTML;
