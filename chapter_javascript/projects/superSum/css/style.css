@@ -1,0 +1,19 @@
+.input-results {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.input-number {
+}
