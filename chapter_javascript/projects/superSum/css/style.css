@@ -1,9 +1,4 @@
 .input-results {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-  margin: 10px;
 }
 
 .container {
@@ -15,5 +10,8 @@ h1 {
   font-size: 3rem;
 }
 
-.input-number {
+.row .col .info-results {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  margin: 5px;
 }

@@ -6,6 +6,10 @@ let caculations = [
   { id: 'calc2', name: 'Subtração', function: getSub, input: null },
   { id: 'calc3', name: 'Multiplicação', function: getMult, input: null },
   { id: 'calc4', name: 'Divisão', function: getDiv, input: null },
+  { id: 'calc1', name: 'Soma', function: getSum, input: null },
+  { id: 'calc2', name: 'Subtração', function: getSub, input: null },
+  { id: 'calc3', name: 'Multiplicação', function: getMult, input: null },
+  { id: 'calc4', name: 'Divisão', function: getDiv, input: null },
 ];
 
 window.addEventListener('load', () => {
@@ -56,11 +60,15 @@ function renderResults() {
   let resultsHTML = '<div>';
   caculations.forEach((calculation) => {
     const resultHTML = `
-    <div class="input-results col s12 m6 l4">
-      <label for="${calculation.name}">
-       <span>Resultado ${calculation.name}:</span>
-       <input type="text" name="${calculation.name}" id="${calculation.id}" value=""  disabled/> 
-      </label>
+    <div class="input-results col s12 m6 l3">
+      <div class="info-results row">
+        <div class="col">
+        <div class="input-field inline">
+        <input type="text" name="${calculation.name}" id="${calculation.id}" value="" disabled/>   
+        <label class="active" for="${calculation.id}">${calculation.name}</label>
+        </div>
+        </div>
+       </div>
     </div>
       `;
     resultsHTML += resultHTML;
