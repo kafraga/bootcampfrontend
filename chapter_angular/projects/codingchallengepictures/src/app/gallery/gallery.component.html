@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>{{ title }}</h2>
+  <div [ngSwitch]="pictures.length">
+    <div *ngSwitchCase="0" class="">
+      <p>Nenhuma Foto</p>
+    </div>
+    <div *ngSwitchDefault>
+      <div class="info-gallery">
+        <div>
+          <img bind-src="pictures[currentPicture]" alt="" />
+        </div>
+        <div class="info-buttons">
+          <span>Foto {{ currentPicture + 1 }} de {{ pictures.length }}</span>
+          <button
+            class="waves-effect waves-light btn-small"
+            (click)="firstPic()"
+            [disabled]="currentPicture == 0"
+          >
+            |<
+          </button>
+          <button
+            class="waves-effect waves-light btn-small"
+            (click)="prevPic()"
+            [disabled]="currentPicture == 0"
+          >
+            <
+          </button>
+          <button
+            class="waves-effect waves-light btn-small"
+            (click)="nextPic()"
+            [disabled]="currentPicture == pictures.length - 1"
+          >
+            >
+          </button>
+          <button
+            class="waves-effect waves-light btn-small"
+            (click)="lastPic()"
+            [disabled]="currentPicture == pictures.length - 1"
+          >
+            >|
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
