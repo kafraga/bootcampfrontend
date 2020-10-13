@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>Senadores</span>
+</mat-toolbar>
+<mat-nav-list>
+  <mat-list-item *ngFor="let senator of senators">
+    <a matLine [routerLink]="['/senators', senator.id]">{{
+      senator.nomeSenador
+    }}</a>
+  </mat-list-item>
+</mat-nav-list>
