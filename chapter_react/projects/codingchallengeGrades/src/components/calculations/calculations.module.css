@@ -1,0 +1,17 @@
+.calculationsContainer {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.container {
+  width: 30%;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
