@@ -1,0 +1,13 @@
+.tweetContainer {
+  padding: 10px;
+  border: 1px solid lightgrey;
+  margin-top: 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete {
+  color: #c23616;
+}

@@ -1,0 +1,37 @@
+.green {
+  color: green;
+}
+
+.yellow {
+  color: goldenrod;
+}
+
+.red {
+  color: red;
+}
+
+.infoTweet {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.spanCaracteres {
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+.buttonTwitter {
+  font-weight: bold;
+}
